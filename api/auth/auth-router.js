@@ -22,7 +22,7 @@ router.post("/register", validateRoleName, async (req, res, next) => {
     user.password = hash
     user.role_name = req.role_name
     try {
-      const [reg] = await Users.add(user)
+      const reg = await Users.add(user)
       console.log(reg)
       res.status(201).json(reg)
     } catch (error) {
@@ -54,7 +54,6 @@ router.post("/login", checkUsernameExists, async (req, res, next) => {
   try {
     const user = req.user
     const token = makeToken(user)
-    console.log(user.username)
     res.status(200).json({message: `${user.username} is back`, token: token})
   } catch (error) {
     next(error)

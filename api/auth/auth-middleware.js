@@ -24,14 +24,14 @@ const restricted = (req, res, next) => {
   if (!token) {
     return next({ status: 401, message: "Token required" });
   }
-   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      if (err) {
-        next({ status: 401, message: "Token invalid" });
-      } else {
-        req.decodedToken = decoded;
-        next();
-      }
-    });
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      next({ status: 401, message: "Token invalid" });
+    } else {
+      req.decodedToken = decoded;
+      next();
+    }
+  });
 };
 
 const only = (role_name) => (req, res, next) => {
